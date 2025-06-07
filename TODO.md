@@ -10,4 +10,4 @@
 6. Add import for individual room
 7. Add admin panel for editing games
 8. Must automatically import games?
-9.  Leaderboard must be based on room not show all at once
+9. Leaderboard must be based on room not show all at once
