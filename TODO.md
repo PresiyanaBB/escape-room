@@ -1,8 +1,8 @@
 1. game.php 
-   - runs only first game - must show all games and let the user to choose
+   - runs only first game - must show all games and let the user choose
    - destroys session after game is over - user must still be logged
-   - must go to leaderboard after finishing game 
-   - must have quit game button
+   - must redirect to leaderboard after finishing game 
+   - must have quit/end game button
 2. Index page must show the current team you are in and must have a constraint for being in only one team
 3. Multiplayer not working
 4. Must add routing
