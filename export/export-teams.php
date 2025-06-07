@@ -1,5 +1,4 @@
 <?php
-// Exports teams and users from the DB to /export-data/teams.json
 
 require '../db.php'; 
 

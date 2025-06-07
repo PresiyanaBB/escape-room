@@ -1,5 +1,4 @@
 <?php
-// Exports rooms and games from the DB to /export-data/games.json
 
 require '../db.php'; 
 

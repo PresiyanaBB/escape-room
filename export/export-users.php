@@ -1,5 +1,4 @@
 <?php
-// Exports users from the DB to /export-data/users.json
 
 require '../db.php'; 
 

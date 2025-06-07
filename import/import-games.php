@@ -1,5 +1,4 @@
 <?php
-// This script imports rooms and games from /data/games.json into the database
 
 require '../db.php'; 
 
