@@ -1,10 +1,10 @@
 <?php
 require 'db.php';
 
-$stmt = $pdo->query("SELECT g.name, l.team_name, l.completion_time
-                    FROM leaderboard l JOIN games g ON g.id = l.game_id
-                    ORDER BY l.completion_time");
+$stmt = $pdo->query("SELECT r.name, l.team_name, l.time
+                    FROM leaderboard l JOIN rooms r ON r.id = l.room_id
+                    ORDER BY l.time");
 
 foreach ($stmt as $row) {
-    echo "{$row['name']} - {$row['team_name']} - {$row['completion_time']}<br>";
+    echo "{$row['name']} - {$row['team_name']} - {$row['time']}<br>";
 }

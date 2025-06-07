@@ -2,7 +2,7 @@
 // import.php
 // This script imports rooms and games from /data/games.json into the database
 
-require 'db.php'; // your PDO connection file
+require 'db.php'; 
 
 $jsonPath = __DIR__ . '/import-data/games.json';
 
@@ -20,7 +20,6 @@ if ($data === null) {
 try {
     $pdo->beginTransaction();
 
-    // Prepare statements
     $insertRoomStmt = $pdo->prepare("
         INSERT INTO rooms (name, steps, time_for_solving)
         VALUES (:name, :steps, :time_for_solving)
@@ -34,26 +33,22 @@ try {
     foreach ($data['rooms'] as $roomEntry) {
         $room = $roomEntry['room'];
 
-        // Extract room data
+
         $name = $room['name'];
         $steps = $room['steps'];
-        $timeForSolving = $room['timeForSolving'] ?? null; // format like "01:00:00"
+        $timeForSolving = $room['timeForSolving'] ?? null; 
 
-        // Convert time string "HH:MM:SS" to TIME format (MySQL TIME compatible)
-        // If null, will insert NULL
+ 
         $timeForSolving = $timeForSolving ? $timeForSolving : null;
 
-        // Insert room
         $insertRoomStmt->execute([
             ':name' => $name,
             ':steps' => $steps,
             ':time_for_solving' => $timeForSolving
         ]);
 
-        // Get last inserted room ID
         $roomId = $pdo->lastInsertId();
 
-        // Insert games for this room
         foreach ($room['games'] as $game) {
             $question = $game['question'];
             $answer = $game['answer'];
