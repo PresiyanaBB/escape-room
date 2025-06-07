@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $teamId = $pdo->lastInsertId();
     }
 
-    $pdo->prepare("INSERT IGNORE INTO team_participants (team_id, participant_id) VALUES (?, ?)")
+    $pdo->prepare("INSERT IGNORE INTO team_users (team_id, user_id) VALUES (?, ?)")
         ->execute([$teamId, $_SESSION['user_id']]);
 
     echo "Joined team '$team'";

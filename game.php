@@ -5,7 +5,7 @@ session_start();
 if (!isset($_SESSION['user_id'])) header("Location: login.php");
 
 $user_id = $_SESSION['user_id'];
-$teamStmt = $pdo->prepare("SELECT team_id FROM team_participants WHERE participant_id = ?");
+$teamStmt = $pdo->prepare("SELECT team_id FROM team_users WHERE user_id = ?");
 $teamStmt->execute([$user_id]);
 $team_id = $teamStmt->fetchColumn();
 
@@ -66,16 +66,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['answer'])) {
             $elapsedSeconds = $nowTimestamp - $startTimestamp;
             $elapsedTimeStr = gmdate("H:i:s", $elapsedSeconds);
 
-            $checkStmt = $pdo->prepare("SELECT id FROM leaderboard WHERE room_id = ? AND team_name = ?");
-            $checkStmt->execute([$room_id, $teamName]);
+            $checkStmt = $pdo->prepare("SELECT id FROM leaderboard WHERE room_id = ? AND team_id = ?");
+            $checkStmt->execute([$room_id, $team_id]);
             $existing = $checkStmt->fetchColumn();
 
             if ($existing) {
                 $updateStmt = $pdo->prepare("UPDATE leaderboard SET time = ? WHERE id = ?");
                 $updateStmt->execute([$elapsedTimeStr, $existing]);
             } else {
-                $insertStmt = $pdo->prepare("INSERT INTO leaderboard (room_id, team_name, time) VALUES (?, ?, ?)");
-                $insertStmt->execute([$room_id, $teamName, $elapsedTimeStr]);
+                $insertStmt = $pdo->prepare("INSERT INTO leaderboard (room_id, team_id, time) VALUES (?, ?, ?)");
+                $insertStmt->execute([$room_id, $team_id, $elapsedTimeStr]);
             }
 
             echo "<h2>🎉 Congratulations! You completed the game in $elapsedTimeStr.</h2>";

@@ -1,0 +1,269 @@
+{
+    "rooms": [
+        {
+            "room": {
+                "name": "The Secret Library",
+                "steps": 5,
+                "timeForSolving": "01:00:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "A dusty book lies open on a pedestal. The riddle reads: 'I speak without a mouth and hear without ears. I have nobody, but I come alive with the wind. What am I?'",
+                        "answer": "echo",
+                        "hint": "Think about something you hear in caves or canyons when you shout."
+                    },
+                    {
+                        "question": "You find a locked drawer with a numerical keypad. A note says: 'Take the number of continents, multiply by 2, subtract 3.' What’s the code?",
+                        "answer": "11",
+                        "hint": "How many continents are there on Earth? Use that in the calculation."
+                    },
+                    {
+                        "question": "A painting tilts open to reveal a safe. The clue says: 'To open me, say the day before tomorrow if yesterday was Monday.'",
+                        "answer": "wednesday",
+                        "hint": "If yesterday was Monday, then today is Tuesday. So what’s the day before tomorrow?"
+                    },
+                    {
+                        "question": "A bookshelf hides a secret passage. To unlock it, solve this: 'Forward I’m heavy, but backward I’m not. What am I?'",
+                        "answer": "ton",
+                        "hint": "Try reading the word backward."
+                    },
+                    {
+                        "question": "A glowing orb asks you a final riddle: 'The more you take, the more you leave behind. What am I?'",
+                        "answer": "footsteps",
+                        "hint": "It’s something you leave on the ground as you move."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Time Traveler's Lab",
+                "steps": 4,
+                "timeForSolving": "00:30:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "You find a strange device with a riddle: 'I can be cracked, made, told, and played. What am I?'",
+                        "answer": "joke",
+                        "hint": "It’s something that usually makes you laugh."
+                    },
+                    {
+                        "question": "A holographic screen lights up: 'What comes once in a minute, twice in a moment, but never in a thousand years?'",
+                        "answer": "m",
+                        "hint": "Focus on the letters, not the meanings of the words."
+                    },
+                    {
+                        "question": "A keypad on a time portal reads: 'What 5-letter word becomes shorter when you add two letters to it?'",
+                        "answer": "short",
+                        "hint": "Think of the word itself changing literally."
+                    },
+                    {
+                        "question": "Final task: 'I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?'",
+                        "answer": "map",
+                        "hint": "It’s something that *represents* reality, not reality itself."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Forgotten Workshop",
+                "steps": 3,
+                "timeForSolving": "00:45:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "A rusted typewriter has a sticky note: 'I can fill a room but take up no space. What am I?'",
+                        "answer": "light",
+                        "hint": "It lets you see, but you can't touch it."
+                    },
+                    {
+                        "question": "You discover blueprints with a cryptic scribble: 'Add 5 to the number of fingers on one hand, then double it.'",
+                        "answer": "20",
+                        "hint": "Five fingers, add 5, then double."
+                    },
+                    {
+                        "question": "A broken clock shows 3:15. A riddle below says: 'When the big hand is on the 3 and the small hand is on the 12, what time is it?'",
+                        "answer": "3:00",
+                        "hint": "Big hand = minutes. Small hand = hour."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Cursed Manor",
+                "steps": 4,
+                "timeForSolving": "00:50:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "A mirror whispers: 'Break me, and I won't stop working. What am I?'",
+                        "answer": "silence",
+                        "hint": "You break it by talking."
+                    },
+                    {
+                        "question": "Etched on an old lantern: 'The more you take from me, the bigger I become. What am I?'",
+                        "answer": "hole",
+                        "hint": "Think of digging — you're removing material, but it's growing."
+                    },
+                    {
+                        "question": "Scrawled on a cracked window: 'What can travel around the world while staying in the same spot?'",
+                        "answer": "stamp",
+                        "hint": "It’s something that moves with letters."
+                    },
+                    {
+                        "question": "A portrait with missing eyes says: 'What comes once in a minute, twice in a moment, but never in a thousand years?'",
+                        "answer": "m",
+                        "hint": "Think alphabetically."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Astral Chamber",
+                "steps": 6,
+                "timeForSolving": "01:10:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "A glowing star map reads: 'I fly without wings. I cry without eyes. What am I?'",
+                        "answer": "cloud",
+                        "hint": "It’s in the sky and can rain."
+                    },
+                    {
+                        "question": "A telescope shows the number '88'. The clue says: 'How many constellations are officially recognized today?'",
+                        "answer": "88",
+                        "hint": "It's already in the clue."
+                    },
+                    {
+                        "question": "A hologram asks: 'What goes up but never comes down?'",
+                        "answer": "age",
+                        "hint": "It's something everyone experiences."
+                    },
+                    {
+                        "question": "A lunar riddle appears: 'The more of me you take, the bigger I get.'",
+                        "answer": "hole",
+                        "hint": "Imagine digging."
+                    },
+                    {
+                        "question": "A star chart glows with this line: 'What begins and has no end, and is the end of all that begins?'",
+                        "answer": "death",
+                        "hint": "It’s unavoidable in life."
+                    },
+                    {
+                        "question": "The chamber whispers: 'I’m not alive, but I grow. I don’t have lungs, but I need air.'",
+                        "answer": "fire",
+                        "hint": "It’s hot, dangerous, and you can cook with it."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Alchemist’s Vault",
+                "steps": 5,
+                "timeForSolving": "01:00:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "An old scroll reads: 'I have cities but no houses, forests but no trees, and rivers but no water. What am I?'",
+                        "answer": "map",
+                        "hint": "Used for navigation."
+                    },
+                    {
+                        "question": "A potion bottle has a label: 'What begins with T, ends with T, and has T in it?'",
+                        "answer": "teapot",
+                        "hint": "It’s something you pour tea from."
+                    },
+                    {
+                        "question": "A coded lock has this clue: 'I’m tall when I’m young and short when I’m old. What am I?'",
+                        "answer": "candle",
+                        "hint": "It burns down over time."
+                    },
+                    {
+                        "question": "An inscription on gold says: 'What has many teeth but can’t bite?'",
+                        "answer": "comb",
+                        "hint": "Used on hair."
+                    },
+                    {
+                        "question": "A final alchemical formula: 'What invention lets you look right through a wall?'",
+                        "answer": "window",
+                        "hint": "Transparent, yet part of a wall."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Pirate’s Hold",
+                "steps": 4,
+                "timeForSolving": "00:50:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "Carved into a mast: 'What has to be broken before you can use it?'",
+                        "answer": "egg",
+                        "hint": "Often part of breakfast."
+                    },
+                    {
+                        "question": "On a treasure chest: 'What comes down but never goes up?'",
+                        "answer": "rain",
+                        "hint": "From the sky, never reversed."
+                    },
+                    {
+                        "question": "Etched in bone: 'I go up and down, but I never move. What am I?'",
+                        "answer": "staircase",
+                        "hint": "Used to climb without motion itself."
+                    },
+                    {
+                        "question": "A map corner reads: 'I’m full of holes but still holds water. What am I?'",
+                        "answer": "sponge",
+                        "hint": "Used to clean, but very porous."
+                    }
+                ]
+            }
+        },
+        {
+            "room": {
+                "name": "The Mind Maze",
+                "steps": 6,
+                "timeForSolving": "01:15:00",
+                "leaderboard": [],
+                "games": [
+                    {
+                        "question": "A voice echoes: 'I’m not alive, but I grow. I don’t have lungs, but I need air. What am I?'",
+                        "answer": "fire",
+                        "hint": "Needs oxygen to burn."
+                    },
+                    {
+                        "question": "On a blinking screen: 'What gets wetter the more it dries?'",
+                        "answer": "towel",
+                        "hint": "Used after a shower."
+                    },
+                    {
+                        "question": "A flashing sign reads: 'You see me once in June, twice in November, and not at all in May. What am I?'",
+                        "answer": "e",
+                        "hint": "Look at the letters in the month names."
+                    },
+                    {
+                        "question": "Projected on a wall: 'What can fill a room without taking any space?'",
+                        "answer": "light",
+                        "hint": "Makes things visible."
+                    },
+                    {
+                        "question": "A door riddled with wires asks: 'The more you take away from me, the bigger I get. What am I?'",
+                        "answer": "hole",
+                        "hint": "Digging makes me grow."
+                    },
+                    {
+                        "question": "Final puzzle: 'What disappears as soon as you say its name?'",
+                        "answer": "silence",
+                        "hint": "Speaking ends it."
+                    }
+                ]
+            }
+        }
+    ]
+}
