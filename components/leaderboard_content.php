@@ -4,6 +4,28 @@ require 'db.php';
 function displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom = null, $selectedTeam = null) {
     ?>
     <main class="leaderboard-container">
+        <?php if (isset($_SESSION['congrats_message'])): ?>
+            <div id="message" class="notification-popup congrats">
+                <div class="notification-content">
+                    <span class="notification-icon">🎉</span>
+                    <span class="notification-text"><?= htmlspecialchars($_SESSION['congrats_message']) ?></span>
+                </div>
+            </div>
+            <?php unset($_SESSION['congrats_message']); ?>
+        <?php endif; ?>
+        
+        <script>
+        if (document.getElementById('message')) {
+            setTimeout(() => {
+                const message = document.getElementById('message');
+                message.style.animation = 'slideOut 0.3s ease-out forwards';
+                setTimeout(() => {
+                    message.remove();
+                }, 300);
+            }, 3000);
+        }
+        </script>
+        
         <h1>Leaderboard</h1>
         
         <div class="leaderboard-filters">

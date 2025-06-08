@@ -134,12 +134,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['answer'])) {
     
     $message = $result['message'];
     if ($result['completed']) {
+        // Store the congratulations message in session
+        $_SESSION['congrats_message'] = $message;
+        
         // Clear only game-related session variables
         unset($_SESSION['started_at']);
         unset($_SESSION['questions']);
         unset($_SESSION['total_questions']);
         unset($_SESSION['current_question']);
         unset($_SESSION['selected_room_id']);
+        
+        // Redirect immediately
         header("Location: ?page=leaderboard");
         exit;
     }
@@ -176,10 +181,14 @@ $currentQuestion = $_SESSION['questions'][$_SESSION['current_question']];
             </form>
             
             <?php if ($message): ?>
-                <div id="message" class="notification-popup <?= strpos($message, 'Correct') !== false ? 'success' : (strpos($message, 'Congratulations') !== false ? 'success' : 'error') ?>">
+                <div id="message" class="notification-popup <?= 
+                    strpos($message, 'Congratulations') !== false ? 'congrats' : 
+                    (strpos($message, 'Correct') !== false ? 'success' : 'error') 
+                ?>">
                     <div class="notification-content">
                         <span class="notification-icon">
-                            <?= strpos($message, 'Correct') !== false || strpos($message, 'Congratulations') !== false ? '✓' : '✕' ?>
+                            <?= strpos($message, 'Congratulations') !== false ? '🎉' : 
+                               (strpos($message, 'Correct') !== false ? '✓' : '✕') ?>
                         </span>
                         <span class="notification-text"><?= htmlspecialchars($message) ?></span>
                     </div>

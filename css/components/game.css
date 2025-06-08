@@ -248,6 +248,15 @@
     color: #ff2010;
 }
 
+.notification-popup.congrats {
+    background-color: #3582ffca;
+    border-left: 4px solid #2600ff;
+}
+
+.notification-popup.congrats .notification-icon {
+    color: #2600ff;
+}
+
 @keyframes slideIn {
     from {
         transform: translateX(100%);
