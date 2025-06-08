@@ -286,14 +286,21 @@
 }
 
 .quit-form {
-    margin-top: 2rem;
-    width: 100%;
-    max-width: 800px;
+    margin-top: 1rem;
 }
 
 .quit-button {
     background-color: var(--error-color);
     color: var(--text-color);
+    padding: 1rem 1rem;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .quit-button:hover {

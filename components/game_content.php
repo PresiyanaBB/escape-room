@@ -193,10 +193,10 @@ $currentQuestion = $_SESSION['questions'][$_SESSION['current_question']];
                 <button type="submit">Submit Answer</button>
             </form>
 
-                    <form method="post" id="quitForm" class="quit-form">
-            <input type="hidden" name="quit_game" value="1">
-            <button type="button" id="quitButton" class="quit-button">Quit Game</button>
-        </form>
+            <form method="post" id="quitForm" class="quit-form">
+                <input type="hidden" name="quit_game" value="1">
+                <button type="button" id="quitButton" class="quit-button">Quit Game</button>
+            </form>
             
             <?php if ($message): ?>
                 <div id="message" class="notification-popup <?= 
