@@ -151,9 +151,7 @@
     outline: none;
 }
 
-.answer-form button[type="submit"] {
-    background-color: var(--accent-color);
-    color: var(--text-color);
+.answer-form button {
     padding: 1rem 2rem;
     border: none;
     border-radius: var(--border-radius);
@@ -163,6 +161,12 @@
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
+    width: 100%;
+}
+
+.answer-form button[type="submit"] {
+    background-color: var(--accent-color);
+    color: var(--text-color);
 }
 
 .answer-form button[type="submit"]:hover {
@@ -279,4 +283,26 @@
         transform: translateX(100%);
         opacity: 0;
     }
+}
+
+.quit-form {
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 800px;
+}
+
+.quit-button {
+    background-color: var(--error-color);
+    color: var(--text-color);
+}
+
+.quit-button:hover {
+    background-color: #c0392b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.quit-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

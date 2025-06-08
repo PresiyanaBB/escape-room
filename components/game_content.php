@@ -13,6 +13,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['room_id'])) {
     exit;
 }
 
+// Handle quit game
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['quit_game'])) {
+    // Clear all game-related session variables
+    unset($_SESSION['started_at']);
+    unset($_SESSION['questions']);
+    unset($_SESSION['total_questions']);
+    unset($_SESSION['current_question']);
+    unset($_SESSION['selected_room_id']);
+    
+    header("Location: ?page=game");
+    exit;
+}
+
 function initializeGame($db, $user_id, $room_id) {
     $team_id = $db->getTeamForUser($user_id);
     if (!$team_id) {
@@ -179,6 +192,11 @@ $currentQuestion = $_SESSION['questions'][$_SESSION['current_question']];
                 <input type="text" name="answer" id="answer" autocomplete="off" required autofocus>
                 <button type="submit">Submit Answer</button>
             </form>
+
+                    <form method="post" id="quitForm" class="quit-form">
+            <input type="hidden" name="quit_game" value="1">
+            <button type="button" id="quitButton" class="quit-button">Quit Game</button>
+        </form>
             
             <?php if ($message): ?>
                 <div id="message" class="notification-popup <?= 
@@ -196,6 +214,7 @@ $currentQuestion = $_SESSION['questions'][$_SESSION['current_question']];
             <?php endif; ?>
         </div>
     </section>
+
 </main>
 
 <script>
@@ -241,4 +260,11 @@ if (document.getElementById('message')) {
         }, 300);
     }, 3000);
 }
+
+// Add quit game functionality
+document.getElementById('quitButton').addEventListener('click', function() {
+    if (confirm('Are you sure you want to quit the game? Your progress will not be saved.')) {
+        document.getElementById('quitForm').submit();
+    }
+});
 </script> 

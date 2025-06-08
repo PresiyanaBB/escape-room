@@ -1,5 +1,3 @@
-1. game.php 
-   - must have quit/end game button
-2. Index page must show the current team you are in and must have a constraint for being in only one team
-3. Multiplayer not working
-4. Add import for individual room
+1. Index page must show the current team you are in and must have a constraint for being in only one team
+2. Multiplayer not working
+3. Add import for individual room
