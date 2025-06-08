@@ -1,8 +1,8 @@
 <?php
 
-require '../db.php'; 
+require 'db.php'; 
 
-$jsonPath = __DIR__ . '../../import-data/games.json';
+$jsonPath = __DIR__ . '/../import-data/games.json';
 
 if (!file_exists($jsonPath)) {
     die("JSON file not found at $jsonPath");
@@ -16,56 +16,33 @@ if ($data === null) {
 }
 
 try {
-    $pdo->beginTransaction();
-
-    $insertRoomStmt = $pdo->prepare("
-        INSERT INTO rooms (name, steps, time_for_solving)
-        VALUES (:name, :steps, :time_for_solving)
-    ");
-
-    $insertGameStmt = $pdo->prepare("
-        INSERT INTO games (room_id, question, answer, hint)
-        VALUES (:room_id, :question, :answer, :hint)
-    ");
+    $db->beginTransaction();
 
     foreach ($data['rooms'] as $roomEntry) {
         $room = $roomEntry['room'];
 
+        // Import room using Database class method
+        $roomId = $db->importRoom(
+            $room['name'],
+            $room['steps'],
+            $room['timeForSolving'] ?? null
+        );
 
-        $name = $room['name'];
-        $steps = $room['steps'];
-        $timeForSolving = $room['timeForSolving'] ?? null; 
-
- 
-        $timeForSolving = $timeForSolving ? $timeForSolving : null;
-
-        $insertRoomStmt->execute([
-            ':name' => $name,
-            ':steps' => $steps,
-            ':time_for_solving' => $timeForSolving
-        ]);
-
-        $roomId = $pdo->lastInsertId();
-
+        // Import games for this room
         foreach ($room['games'] as $game) {
-            $question = $game['question'];
-            $answer = $game['answer'];
-            $hint = $game['hint'] ?? null;
-
-            $insertGameStmt->execute([
-                ':room_id' => $roomId,
-                ':question' => $question,
-                ':answer' => $answer,
-                ':hint' => $hint
-            ]);
+            $db->importGame(
+                $roomId,
+                $game['question'],
+                $game['answer'],
+                $game['hint'] ?? null
+            );
         }
     }
 
-    $pdo->commit();
-
+    $db->commit();
     echo "Import completed successfully.";
 
 } catch (PDOException $e) {
-    $pdo->rollBack();
+    $db->rollBack();
     die("Database error: " . $e->getMessage());
 }

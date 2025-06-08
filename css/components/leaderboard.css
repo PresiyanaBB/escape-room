@@ -1,0 +1,25 @@
+/* Leaderboard */
+.leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--secondary-color);
+}
+
+.leaderboard-table th {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+}
+
+.leaderboard-table tr:hover {
+    background-color: var(--secondary-color);
+} 

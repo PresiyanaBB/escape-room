@@ -1,8 +1,8 @@
 <?php
 
-require '../db.php'; 
+require 'db.php'; 
 
-$outputDir = __DIR__ . '../../export-data';
+$outputDir = __DIR__ . '/../export-data';
 $outputFile = $outputDir . '/leaderboard.json';
 
 if (!is_dir($outputDir)) {
@@ -10,17 +10,11 @@ if (!is_dir($outputDir)) {
 }
 
 try {
-    $roomsStmt = $pdo->query("SELECT id, name FROM rooms");
-    $rooms = $roomsStmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $rooms = $db->getAllRooms();
     $exportData = ['rooms' => []];
 
-    $leaderboardsStmt = $pdo->prepare("SELECT t.name, l.time FROM leaderboard as l 
-    JOIN teams as t ON t.id = l.team_id WHERE room_id = :room_id ORDER BY l.time ASC LIMIT 5");
-
     foreach ($rooms as $room) {
-        $leaderboardsStmt->execute([':room_id' => $room['id']]);
-        $leaderboards = $leaderboardsStmt->fetchAll(PDO::FETCH_ASSOC);
+        $leaderboards = $db->getLeaderboardForRoom($room['id']);
 
         $roomObj = [
             'name' => $room['name'],
@@ -35,7 +29,6 @@ try {
         }
         $exportData['rooms'][] = ['room' => $roomObj];
     }
-
 
     $jsonString = json_encode($exportData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if (file_put_contents($outputFile, $jsonString) === false) {

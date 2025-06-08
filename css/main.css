@@ -1,0 +1,9 @@
+/* Base styles first */
+@import 'base.css';
+
+/* Component styles */
+@import 'components/header.css';
+@import 'components/footer.css';
+@import 'components/game.css';
+@import 'components/settings.css';
+@import 'components/leaderboard.css'; 

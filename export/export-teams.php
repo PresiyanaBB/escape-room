@@ -1,8 +1,8 @@
 <?php
 
-require '../db.php'; 
+require 'db.php'; 
 
-$outputDir = __DIR__ . '../../export-data';
+$outputDir = __DIR__ . '/../export-data';
 $outputFile = $outputDir . '/teams.json';
 
 if (!is_dir($outputDir)) {
@@ -10,17 +10,11 @@ if (!is_dir($outputDir)) {
 }
 
 try {
-    $teamsStmt = $pdo->query("SELECT id, name FROM teams");
-    $teams = $teamsStmt->fetchAll(PDO::FETCH_ASSOC);
-
+    $teams = $db->getAllTeams();
     $exportData = ['teams' => []];
 
-    $usersStmt = $pdo->prepare("SELECT u.username FROM team_users AS tu JOIN users u ON u.id = tu.user_id 
-                                        JOIN teams t ON t.id = tu.team_id WHERE t.id = :team_id ORDER BY u.username ASC");
-
     foreach ($teams as $team) {
-        $usersStmt->execute([':team_id' => $team['id']]);
-        $users = $usersStmt->fetchAll(PDO::FETCH_ASSOC);
+        $users = $db->getUsersForTeam($team['id']);
 
         $teamObj = [
             'name' => $team['name'],
@@ -35,7 +29,6 @@ try {
 
         $exportData['teams'][] = ['team' => $teamObj];
     }
-
 
     $jsonString = json_encode($exportData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     if (file_put_contents($outputFile, $jsonString) === false) {
