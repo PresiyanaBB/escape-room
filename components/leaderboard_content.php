@@ -2,10 +2,6 @@
 require 'db.php';
 
 function displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom = null, $selectedTeam = null) {
-    if (empty($leaderboard)) {
-        echo '<p class="no-records">No records found.</p>';
-        return;
-    }
     ?>
     <main class="leaderboard-container">
         <h1>Leaderboard</h1>
@@ -42,6 +38,19 @@ function displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom = null, 
             </form>
         </div>
         
+        <?php if (empty($leaderboard)) { ?>
+            <style>
+                p.no-records { display: block; }
+                table.leaderboard-table { display: none; }
+            </style>
+        <?php } else { ?>
+            <style>
+                p.no-records { display: none; }
+                table.leaderboard-table { display: table; }
+            </style>
+        <?php } ?>
+
+        <p class="no-records">No records found.</p>
         <table class="leaderboard-table">
             <thead>
                 <tr>
@@ -60,7 +69,7 @@ function displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom = null, 
                 <?php endforeach; ?>
             </tbody>
         </table>
-        
+                
         <nav class="leaderboard-navigation">
             <a href="?page=dashboard" class="nav-link">Back to Dashboard</a>
         </nav>
