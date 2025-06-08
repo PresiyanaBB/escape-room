@@ -51,13 +51,13 @@ function handleAnswer($db, $answer, $currentQuestion, $room_id, $team_id, $timeI
             $elapsedTimeStr = gmdate("H:i:s", $timeInfo['elapsed']);
             $db->updateLeaderboard($room_id, $team_id, $elapsedTimeStr);
             return [
-                'message' => "🎉 Congratulations! You completed the game in $elapsedTimeStr.",
+                'message' => "Congratulations! You completed the game in $elapsedTimeStr.",
                 'completed' => true
             ];
         }
-        return ['message' => "✅ Correct answer!", 'completed' => false];
+        return ['message' => "Correct answer!", 'completed' => false];
     }
-    return ['message' => "❌ Wrong answer, try again.", 'completed' => false];
+    return ['message' => "Wrong answer, try again.", 'completed' => false];
 }
 
 // Handle game selection
@@ -115,7 +115,7 @@ if (!isset($_SESSION['questions'])) {
 $timeInfo = calculateTimeRemaining($room['time_for_solving'], $_SESSION['started_at']);
 
 if ($timeInfo['isExpired']) {
-    echo '<div class="game-over">⏰ Time\'s up! The game is over.</div>';
+    echo '<div class="game-over">Time\'s up! The game is over.</div>';
     // Clear only game-related session variables
     unset($_SESSION['started_at']);
     unset($_SESSION['questions']);
@@ -176,7 +176,14 @@ $currentQuestion = $_SESSION['questions'][$_SESSION['current_question']];
             </form>
             
             <?php if ($message): ?>
-                <p id="message" class="message"><?= htmlspecialchars($message) ?></p>
+                <div id="message" class="notification-popup <?= strpos($message, 'Correct') !== false ? 'success' : (strpos($message, 'Congratulations') !== false ? 'success' : 'error') ?>">
+                    <div class="notification-content">
+                        <span class="notification-icon">
+                            <?= strpos($message, 'Correct') !== false || strpos($message, 'Congratulations') !== false ? '✓' : '✕' ?>
+                        </span>
+                        <span class="notification-text"><?= htmlspecialchars($message) ?></span>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
     </section>
@@ -189,7 +196,7 @@ const timerEl = document.getElementById('timer');
 function updateTimer() {
     if (remaining <= 0) {
         timerEl.textContent = "00:00:00";
-        alert("⏰ Time's up! The game is over.");
+        alert("Time's up! The game is over.");
         window.location.reload();
         return;
     }
@@ -215,4 +222,14 @@ document.getElementById('showHintBtn').addEventListener('click', function() {
 });
 
 document.getElementById('answer').focus();
+
+if (document.getElementById('message')) {
+    setTimeout(() => {
+        const message = document.getElementById('message');
+        message.style.animation = 'slideOut 0.3s ease-out forwards';
+        setTimeout(() => {
+            message.remove();
+        }, 300);
+    }, 3000);
+}
 </script> 

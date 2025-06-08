@@ -200,4 +200,74 @@
 .game-over {
     background-color: var(--error-color);
     color: white;
-} 
+}
+
+.notification-popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    min-width: 300px;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    animation: slideIn 0.3s ease-out;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.notification-icon {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.notification-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.notification-popup.success {
+    background-color: #258128cf;
+    border-left: 4px solid #00b406;
+}
+
+.notification-popup.success .notification-icon {
+    color: #00b406;
+}
+
+.notification-popup.error {
+    background-color: #9e332bd4;
+    border-left: 4px solid #ff2010;
+}
+
+.notification-popup.error .notification-icon {
+    color: #ff2010;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
