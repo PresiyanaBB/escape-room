@@ -25,6 +25,12 @@ class Database {
         return $stmt->fetch();
     }
 
+    public function findUserByEmail($email) {
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        return $stmt->fetch();
+    }
+
     public function createUser($email, $username, $password) {
         $stmt = $this->pdo->prepare("INSERT INTO users (email, username, password) VALUES (?, ?, ?)");
         return $stmt->execute([$email, $username, $password]);

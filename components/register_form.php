@@ -9,16 +9,27 @@ if (isset($_SESSION['user_id'])) {
 
 function handleRegistration($db, $email, $username, $password) {
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $user_username = $db->findUserByUsername($username);
+    if ($user_username) {
+        return -1;
+    }
+    $user_email = $db->findUserByEmail($email);
+    if ($user_email) {
+        return -2;
+    }
     return $db->createUser($email, $username, $hashedPassword);
 }
 
 $error = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (handleRegistration($db, $_POST['email'], $_POST['username'], $_POST['password'])) {
+    $result = handleRegistration($db, $_POST['email'], $_POST['username'], $_POST['password']);
+    if ($result === -1) {
+        $error = "Username already exists.";
+    } else if ($result === -2) {
+        $error = "Email already exists.";
+    } else {
         header("Location: ?page=login");
         exit;
-    } else {
-        $error = "Username already exists.";
     }
 }
 ?>
