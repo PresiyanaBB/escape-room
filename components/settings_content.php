@@ -12,25 +12,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         try {
             switch ($_POST['action']) {
                 case 'import_games':
+                    if (!isset($_FILES['games_file']) || $_FILES['games_file']['error'] !== UPLOAD_ERR_OK) {
+                        throw new Exception("Please select a valid file to import");
+                    }
                     require_once __DIR__ . '/../import/import-games.php';
                     $message = "Games imported successfully!";
                     break;
                 case 'export_games':
-                    require_once __DIR__ . '/../export/export-games.php';
-                    $message = "Games exported successfully!";
-                    break;
+                    header("Location: export/export-games.php");
+                    exit;
                 case 'export_teams':
-                    require_once __DIR__ . '/../export/export-teams.php';
-                    $message = "Teams exported successfully!";
-                    break;
+                    header("Location: export/export-teams.php");
+                    exit;
                 case 'export_users':
-                    require_once __DIR__ . '/../export/export-users.php';
-                    $message = "Users exported successfully!";
-                    break;
+                    header("Location: export/export-users.php");
+                    exit;
                 case 'export_leaderboard':
-                    require_once __DIR__ . '/../export/export-leaderboard.php';
-                    $message = "Leaderboard exported successfully!";
-                    break;
+                    header("Location: export/export-leaderboard.php");
+                    exit;
             }
         } catch (Exception $e) {
             $error = "Error: " . $e->getMessage();
@@ -48,6 +47,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         </div>
     <?php endif; ?>
     
+    <?php if (isset($_SESSION['import_message'])): ?>
+        <div class="message success">
+            <?= htmlspecialchars($_SESSION['import_message']) ?>
+        </div>
+        <?php unset($_SESSION['import_message']); ?>
+    <?php endif; ?>
+    
     <?php if ($error): ?>
         <div class="error-message">
             <?= htmlspecialchars($error) ?>
@@ -60,8 +66,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         <div class="settings-grid">
             <div class="settings-card">
                 <h3>Games</h3>
-                <form method="post" class="settings-form">
+                <form method="post" class="settings-form" enctype="multipart/form-data">
                     <input type="hidden" name="action" value="import_games">
+                    <div class="file-input-container">
+                        <input type="file" name="games_file" accept=".json" required id="games-file" class="file-input">
+                        <label for="games-file" class="file-input-label">
+                            <span class="file-input-text">Choose JSON file</span>
+                            <span class="file-input-button">Browse</span>
+                        </label>
+                    </div>
                     <button type="submit" class="submit-button">Import Games</button>
                 </form>
                 <form method="post" class="settings-form">
@@ -95,4 +108,82 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
         </div>
     </div>
-</main> 
+</main>
+
+<style>
+.file-input-container {
+    margin-bottom: 1rem;
+}
+
+.file-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+.file-input-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem;
+    background: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-input-label:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.file-input-text {
+    flex: 1;
+    color: var(--text-color);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-input-button {
+    padding: 0.375rem 0.75rem;
+    background: var(--accent-color);
+    color: var(--text-color);
+    border-radius: var(--border-radius);
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    transition: all 0.3s ease;
+}
+
+.file-input-button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Show selected filename */
+.file-input:not(:placeholder-shown) + .file-input-label .file-input-text {
+    color: var(--text-color);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const fileInput = document.getElementById('games-file');
+    const fileText = fileInput.nextElementSibling.querySelector('.file-input-text');
+    
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            fileText.textContent = this.files[0].name;
+        } else {
+            fileText.textContent = 'Choose JSON file';
+        }
+    });
+});
+</script> 

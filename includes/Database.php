@@ -80,12 +80,29 @@ class Database {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getLeaderboard() {
-        return $this->pdo->query("SELECT r.name, t.name AS team_name, l.time
-                                FROM leaderboard l 
-                                JOIN rooms r ON r.id = l.room_id
-                                JOIN teams t ON t.id = l.team_id
-                                ORDER BY l.time");
+    public function getLeaderboard($roomId = null, $teamId = null) {
+        $query = "SELECT r.name, t.name AS team_name, l.time
+                FROM leaderboard l 
+                JOIN rooms r ON r.id = l.room_id
+                JOIN teams t ON t.id = l.team_id
+                WHERE 1=1";
+        $params = [];
+
+        if ($roomId) {
+            $query .= " AND l.room_id = ?";
+            $params[] = $roomId;
+        }
+
+        if ($teamId) {
+            $query .= " AND l.team_id = ?";
+            $params[] = $teamId;
+        }
+
+        $query .= " ORDER BY l.time ASC";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public function updateLeaderboard($roomId, $teamId, $time) {
@@ -151,5 +168,17 @@ class Database {
 
     public function getAllUsers() {
         return $this->pdo->query("SELECT id, email, username FROM users")->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRoomByName($name) {
+        $stmt = $this->pdo->prepare("SELECT * FROM rooms WHERE name = ?");
+        $stmt->execute([$name]);
+        return $stmt->fetch();
+    }
+
+    public function getGameByQuestion($roomId, $question) {
+        $stmt = $this->pdo->prepare("SELECT * FROM games WHERE room_id = ? AND question = ?");
+        $stmt->execute([$roomId, $question]);
+        return $stmt->fetch();
     }
 } 

@@ -1,34 +1,29 @@
 <?php
+// Prevent any output buffering
+if (ob_get_level()) ob_end_clean();
 
-require 'db.php'; 
+// Set headers for JSON download
+header('Content-Type: application/json');
+header('Content-Disposition: attachment; filename="users.json"');
 
-$outputDir = __DIR__ . '/../export-data';
-$outputFile = $outputDir . '/users.json';
-
-if (!is_dir($outputDir)) {
-    mkdir($outputDir, 0777, true);
-}
+require_once __DIR__ . '/../db.php';
 
 try {
     $users = $db->getAllUsers();
     $exportData = ['users' => []];
 
     foreach ($users as $user) {
-        $userObj = [
+        $exportData['users'][] = [
             'email' => $user['email'],
-            'username' => $user['username'],
+            'username' => $user['username']
         ];
-
-        $exportData['users'][] = ['user' => $userObj];
     }
 
     $jsonString = json_encode($exportData, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-    if (file_put_contents($outputFile, $jsonString) === false) {
-        throw new Exception("Failed to write to $outputFile");
-    }
-
-    echo "Export completed successfully: $outputFile\n";
+    header('Content-Length: ' . strlen($jsonString));
+    echo $jsonString;
 
 } catch (Exception $e) {
-    die("Error: " . $e->getMessage());
+    header('HTTP/1.1 500 Internal Server Error');
+    echo json_encode(['error' => $e->getMessage()]);
 }

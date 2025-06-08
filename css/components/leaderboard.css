@@ -1,4 +1,51 @@
 /* Leaderboard */
+.leaderboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem var(--spacing);
+}
+
+.leaderboard-filters {
+    background-color: var(--card-background);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.filter-form {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.filter-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--secondary-color);
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    font-size: 1rem;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+}
+
 .leaderboard-table {
     width: 100%;
     border-collapse: collapse;
@@ -22,4 +69,18 @@
 
 .leaderboard-table tr:hover {
     background-color: var(--secondary-color);
+}
+
+.leaderboard-navigation {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.no-records {
+    text-align: center;
+    color: var(--text-color);
+    padding: 2rem;
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    margin: 1rem 0;
 } 

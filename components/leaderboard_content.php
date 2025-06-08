@@ -1,7 +1,7 @@
 <?php
 require 'db.php';
 
-function displayLeaderboard($leaderboard) {
+function displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom = null, $selectedTeam = null) {
     if (empty($leaderboard)) {
         echo '<p class="no-records">No records found.</p>';
         return;
@@ -9,6 +9,38 @@ function displayLeaderboard($leaderboard) {
     ?>
     <main class="leaderboard-container">
         <h1>Leaderboard</h1>
+        
+        <div class="leaderboard-filters">
+            <form method="get" class="filter-form">
+                <input type="hidden" name="page" value="leaderboard">
+                
+                <div class="filter-group">
+                    <label for="room">Filter by Game:</label>
+                    <select name="room" id="room" class="filter-select">
+                        <option value="">All Games</option>
+                        <?php foreach ($rooms as $room): ?>
+                            <option value="<?= $room['id'] ?>" <?= $selectedRoom == $room['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($room['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="team">Filter by Team:</label>
+                    <select name="team" id="team" class="filter-select">
+                        <option value="">All Teams</option>
+                        <?php foreach ($teams as $team): ?>
+                            <option value="<?= $team['id'] ?>" <?= $selectedTeam == $team['id'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($team['name']) ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-button">Apply Filters</button>
+            </form>
+        </div>
         
         <table class="leaderboard-table">
             <thead>
@@ -36,6 +68,15 @@ function displayLeaderboard($leaderboard) {
     <?php
 }
 
-$leaderboard = $db->getLeaderboard();
-displayLeaderboard($leaderboard);
+// Get filter parameters
+$selectedRoom = isset($_GET['room']) ? (int)$_GET['room'] : null;
+$selectedTeam = isset($_GET['team']) ? (int)$_GET['team'] : null;
+
+// Get all rooms and teams for filters
+$rooms = $db->getAllRooms();
+$teams = $db->getAllTeams();
+
+// Get filtered leaderboard
+$leaderboard = $db->getLeaderboard($selectedRoom, $selectedTeam);
+displayLeaderboard($leaderboard, $rooms, $teams, $selectedRoom, $selectedTeam);
 ?> 
