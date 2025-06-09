@@ -50,10 +50,6 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE
 );
 
-INSERT INTO users (email, username, password)
-VALUES
-  ('admin@admin.bg', 'admin', 'admin');
-  
 INSERT INTO rooms (name, steps, time_for_solving)
 VALUES ('Mystic Garden', 3, '00:20:00');
 
