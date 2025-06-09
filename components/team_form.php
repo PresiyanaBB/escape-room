@@ -15,10 +15,17 @@ function handleTeamJoin($db, $teamName, $userId) {
     return $db->addUserToTeam($teamId, $userId);
 }
 
+// Get current team info
+$currentTeamId = $db->getTeamForUser($_SESSION['user_id']);
+$currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
+
 $message = "";
 $messageType = "";
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    if (handleTeamJoin($db, $_POST['team'], $_SESSION['user_id'])) {
+    if ($currentTeamId) {
+        $message = "You already are in a team!";
+        $messageType = "warning";
+    } else if (handleTeamJoin($db, $_POST['team'], $_SESSION['user_id'])) {
         $message = "Successfully joined team '" . htmlspecialchars($_POST['team']) . "'";
         $messageType = "success";
     } else {
@@ -26,10 +33,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $messageType = "error";
     }
 }
-
-// Get current team info
-$currentTeamId = $db->getTeamForUser($_SESSION['user_id']);
-$currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
 ?>
 
 <main class="team-container">
@@ -43,7 +46,7 @@ $currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
     
     <form method="post" class="team-form">
         <div class="form-group">
-            <label for="team">Join New Team:</label>
+            <label for="team">Join Team:</label>
             <input type="text" id="team" name="team" required>
         </div>
         
