@@ -1,3 +1,2 @@
-2. Make Settings visible only for admin
-2. Add remove game option only for admin
-3. Multiplayer not working?
+1. Admin doesn't see Dashboard in header
+2. Multiplayer not working?
