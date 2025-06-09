@@ -18,6 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     require_once __DIR__ . '/../import/import-games.php';
                     $message = "Games imported successfully!";
                     break;
+                case 'import_game':
+                    if (!isset($_FILES['game_file']) || $_FILES['game_file']['error'] !== UPLOAD_ERR_OK) {
+                        throw new Exception("Please select a valid file to import");
+                    }
+                    require_once __DIR__ . '/../import/import-game.php';
+                    $message = "Game imported successfully!";
+                    break;
                 case 'export_games':
                     header("Location: export/export-games.php");
                     exit;
@@ -71,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="file-input-container">
                         <input type="file" name="games_file" accept=".json" required id="games-file" class="file-input">
                         <label for="games-file" class="file-input-label">
-                            <span class="file-input-text">Choose JSON file</span>
+                            <span class="file-input-text games-file-input-text">Choose JSON file</span>
                             <span class="file-input-button">Browse</span>
                         </label>
                     </div>
@@ -80,6 +87,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <form method="post" class="settings-form">
                     <input type="hidden" name="action" value="export_games">
                     <button type="submit" class="submit-button">Export Games</button>
+                </form>
+            </div>
+
+            <div class="settings-card">
+                <h3>Game</h3>
+                <form method="post" class="settings-form" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="import_game">
+                    <div class="file-input-container">
+                        <input type="file" name="game_file" accept=".json" required id="game-file" class="file-input">
+                        <label for="game-file" class="file-input-label">
+                            <span class="file-input-text game-file-input-text">Choose JSON file</span>
+                            <span class="file-input-button">Browse</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-button">Import Game</button>
                 </form>
             </div>
 
@@ -175,14 +197,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const fileInput = document.getElementById('games-file');
-    const fileText = fileInput.nextElementSibling.querySelector('.file-input-text');
+    const gameFileInput = document.getElementById('game-file');
+    const gameFileText = gameFileInput.nextElementSibling.querySelector('.file-input-text');
+    const gamesFileInput = document.getElementById('games-file');
+    const gamesFileText = gamesFileInput.nextElementSibling.querySelector('.file-input-text');
     
-    fileInput.addEventListener('change', function() {
+    gameFileInput.addEventListener('change', function() {
         if (this.files.length > 0) {
-            fileText.textContent = this.files[0].name;
+            gameFileText.textContent = this.files[0].name;
         } else {
-            fileText.textContent = 'Choose JSON file';
+            gameFileText.textContent = 'Choose JSON file';
+        }
+    });
+    
+    gamesFileInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            gamesFileText.textContent = this.files[0].name;
+        } else {
+            gamesFileText.textContent = 'Choose JSON file';
         }
     });
 });

@@ -1,0 +1,36 @@
+{
+  "room": {
+    "name": "The Clockwork Tower",
+    "steps": 5,
+    "timeForSolving": "01:05:00",
+    "maxHints": 2,
+    "leaderboard": [],
+    "games": [
+      {
+        "question": "A grand pendulum swings endlessly. Its plaque reads: \"What runs all around a backyard, yet never moves?\"",
+        "answer": "fence",
+        "hint": "It goes around the perimeter of the yard."
+      },
+      {
+        "question": "You climb a spiral stair and face a locked door with brass numbers: \"Add the number of hours on a clock face to the number of minutes in one hour, then divide by 2.\" Enter the code:",
+        "answer": "36",
+        "hint": "12 + 60 = 72, then divide by 2."
+      },
+      {
+        "question": "Behind a gear-shaped window a riddle glows: \"I have a neck but no head, two arms but no hands. What am I?\"",
+        "answer": "shirt",
+        "hint": "Something you wear."
+      },
+      {
+        "question": "A music box plays backward. Etched inside: \"Forward I am heavy, backward I am not.\" What word am I?",
+        "answer": "ton",
+        "hint": "Read the word backwards."
+      },
+      {
+        "question": "At the tower’s apex a final clock face asks: \"The more you have of me, the less you see. What am I?\"",
+        "answer": "darkness",
+        "hint": "Night arrives with plenty of me."
+      }
+    ]
+  }
+}
