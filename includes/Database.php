@@ -125,6 +125,11 @@ class Database {
         }
     }
 
+    public function deleteRoom($roomId) {
+        $stmt = $this->pdo->prepare('DELETE FROM rooms WHERE id = :id');
+        $stmt->execute([':id' => $roomId]);
+    }
+
     public function importRoom($name, $steps, $timeForSolving) {
         $stmt = $this->pdo->prepare("INSERT INTO rooms (name, steps, time_for_solving) VALUES (?, ?, ?)");
         $stmt->execute([$name, $steps, $timeForSolving]);

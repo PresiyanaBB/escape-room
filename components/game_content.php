@@ -6,6 +6,15 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
+$isAdmin = ($_SESSION['username'] === 'admin');
+
+// Handle admin room removal
+if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_room_id'])) {
+    $db->deleteRoom($_POST['remove_room_id']);     // трябва да имаш функция deleteRoom($id)
+    header("Location: ?page=game");
+    exit;
+}
+
 // Handle room selection first
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['room_id'])) {
     $_SESSION['selected_room_id'] = $_POST['room_id'];
@@ -88,10 +97,20 @@ if (!isset($_SESSION['selected_room_id'])) {
                     <h3><?= htmlspecialchars($room['name']) ?></h3>
                     <p>Steps: <?= htmlspecialchars($room['steps']) ?></p>
                     <p>Time: <?= htmlspecialchars($room['time_for_solving']) ?></p>
-                    <form method="post" class="room-form">
-                        <input type="hidden" name="room_id" value="<?= $room['id'] ?>">
-                        <button type="submit" class="submit-button">Start Game</button>
-                    </form>
+                    <?php if ($isAdmin): ?>
+                        <form method="post" class="room-form">
+                            <input type="hidden" name="remove_room_id" value="<?= $room['id'] ?>">
+                            <button type="submit" class="submit-button danger"
+                                onclick="return confirm('Delete this room permanently?');">
+                                Remove Game
+                            </button>
+                        </form>
+                    <?php else: ?>
+                        <form method="post" class="room-form">
+                            <input type="hidden" name="room_id" value="<?= $room['id'] ?>">
+                            <button type="submit" class="submit-button">Start Game</button>
+                        </form>
+                    <?php endif; ?>
                 </div>
             <?php endforeach; ?>
         </div>

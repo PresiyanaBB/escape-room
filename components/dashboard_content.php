@@ -8,6 +8,8 @@ if (!isset($_SESSION['user_id'])) {
 
 $currentTeamId = $db->getTeamForUser($_SESSION['user_id']);
 $currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
+
+$isAdmin = ($_SESSION['username'] === 'admin');
 ?>
 
 <main class="dashboard-container">
@@ -21,8 +23,14 @@ $currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
     </header>
 
     <nav class="dashboard-navigation">
-        <a href="?page=team" class="nav-link">Join a Team</a>
-        <a href="?page=game" class="nav-link">Start Game</a>
+        <?php if ($isAdmin): ?>
+            <a href="?page=settings" class="nav-link">Settings</a>
+            <a href="?page=game" class="nav-link">Edit Games</a>
+        <?php else: ?>
+            <a href="?page=team" class="nav-link">Join a Team</a>
+            <a href="?page=game" class="nav-link">Start Game</a>
+        <?php endif; ?>
+
         <a href="?page=leaderboard" class="nav-link">View Leaderboard</a>
     </nav>
 </main>

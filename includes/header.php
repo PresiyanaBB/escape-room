@@ -1,5 +1,7 @@
 <?php
 session_start();
+$isLogged = isset($_SESSION['user_id']);
+$isAdmin = $isLogged && ($_SESSION['username'] === 'admin');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,12 +18,17 @@ session_start();
                 <a href="?page=dashboard">Escape Room</a>
             </div>
             <div class="nav-links">
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="?page=dashboard" class="nav-link">Dashboard</a>
-                    <a href="?page=game" class="nav-link">Games</a>
-                    <a href="?page=leaderboard" class="nav-link">Leaderboard</a>
-                    <a href="?page=team" class="nav-link">Team</a>
-                    <a href="?page=settings" class="nav-link">Settings</a>
+                <?php if ($isLogged): ?>
+                    <?php if ($isAdmin): ?>
+                        <a href="?page=settings" class="nav-link">Settings</a>
+                        <a href="?page=leaderboard" class="nav-link">Leaderboard</a>
+                        <a href="?page=game" class="nav-link">Games</a>
+                    <?php else: ?>
+                        <a href="?page=dashboard" class="nav-link">Dashboard</a>
+                        <a href="?page=game" class="nav-link">Games</a>
+                        <a href="?page=leaderboard" class="nav-link">Leaderboard</a>
+                        <a href="?page=team" class="nav-link">Team</a>
+                    <?php endif; ?>
                     <a href="?page=logout" class="nav-link">Logout</a>
                 <?php else: ?>
                     <a href="?page=login" class="nav-link">Login</a>
