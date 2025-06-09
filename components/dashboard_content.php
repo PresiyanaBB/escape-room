@@ -1,13 +1,23 @@
 <?php
+require 'db.php';
+
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ?page=login");
+    header('Location: ?page=login');
     exit;
 }
+
+$currentTeamId = $db->getTeamForUser($_SESSION['user_id']);
+$currentTeamName = $currentTeamId ? $db->getTeamName($currentTeamId) : null;
 ?>
 
 <main class="dashboard-container">
     <header class="dashboard-header">
-        <h1>Welcome, <?= htmlspecialchars($_SESSION['username']) ?></h1>
+        <h1>
+            Welcome, <?= htmlspecialchars($_SESSION['username']) ?>!
+            <?php if ($currentTeamName): ?>
+                Your current team is '<?= htmlspecialchars($currentTeamName) ?>'.
+            <?php endif; ?>
+        </h1>
     </header>
 
     <nav class="dashboard-navigation">
@@ -15,4 +25,4 @@ if (!isset($_SESSION['user_id'])) {
         <a href="?page=game" class="nav-link">Start Game</a>
         <a href="?page=leaderboard" class="nav-link">View Leaderboard</a>
     </nav>
-</main> 
+</main>
