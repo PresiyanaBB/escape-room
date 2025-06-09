@@ -49,3 +49,26 @@ CREATE TABLE IF NOT EXISTS leaderboard (
   FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE,
   FOREIGN KEY (team_id) REFERENCES teams(id) ON DELETE CASCADE
 );
+
+INSERT INTO users (email, username, password)
+VALUES
+  ('admin@admin.bg', 'admin', 'admin');
+  
+INSERT INTO rooms (name, steps, time_for_solving)
+VALUES ('Mystic Garden', 3, '00:20:00');
+
+SET @room_id = LAST_INSERT_ID();
+
+INSERT INTO games (room_id, question, answer, hint) VALUES
+  (@room_id,
+   'I’m tall when I’m young and short when I’m old. What am I?',
+   'candle',
+   'It burns down over time.'),
+  (@room_id,
+   'What has keys but can’t open locks?',
+   'keyboard',
+   'You type on it every day.'),
+  (@room_id,
+   'What can travel around the world while staying in the same spot?',
+   'stamp',
+   'It moves with letters.');
