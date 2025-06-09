@@ -60,14 +60,12 @@ try {
     $db->commit();
     
     // Return success message with import statistics
-    $message = sprintf(
+    $_SESSION['import_message'] = sprintf(
         "Import completed successfully! Imported %d new rooms and %d new games. Skipped %d existing games.",
         $importedRooms,
         $importedGames,
         $skippedGames
     );
-    
-    $_SESSION['import_message'] = $message;
     header("Location: ?page=settings");
     exit;
 
