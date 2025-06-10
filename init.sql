@@ -69,6 +69,6 @@ INSERT INTO games (room_id, question, answer, hint) VALUES
    'stamp',
    'It moves with letters.');
    
-INSERT INTO escape_room.users (email, username, password)
+INSERT INTO users (email, username, password)
 VALUES
   ('admin@admin.bg', 'admin', '$2y$10$sWhnIQ6.Ad4budtdPsEZ.O4Avr9YjqU6aGcjutEAzj97DmytwSd0S');
